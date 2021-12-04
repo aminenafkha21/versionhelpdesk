@@ -6,6 +6,8 @@ use App\Http\Controllers\TicketController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\SettingsController;
+
 
 
 
@@ -42,6 +44,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class,'index'])->name(
 Route::resource('tickets', TicketController::class);
 Route::resource('services', ServiceController::class);
 Route::resource('users', UserController::class);
+
 Route::get('/newticket', [App\Http\Controllers\TicketController::class, 'create']);
 
 
@@ -64,6 +67,15 @@ Route::post("/editservice",[ServiceController::class,"updateService"]);
 
 
 Route::get("/markasvnotification/{id}",[NotificationController::class,"markasvnotification"]);
+
+
+Route::get('/settings', [App\Http\Controllers\SettingsController::class, 'index'])->name('settings');
+Route::post('/changePassword',[App\Http\Controllers\SettingsController::class, 'changePasswordPost'])->name('changePasswordPost');
+Route::post('/changeNameandMail',[App\Http\Controllers\SettingsController::class, 'changeNameandMail'])->name('changeNameandMail');
+Route::post('/deleteaccount',[App\Http\Controllers\SettingsController::class, 'deleteaccount'])->name('deleteaccount');
+
+
+
 
 
 // Route::get('/users', [App\Http\Controllers\HomeController::class, 'users']);

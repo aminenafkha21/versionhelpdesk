@@ -104,7 +104,7 @@
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
               <p class="mb-0 font-weight-normal float-left dropdown-header">Settings</p>
-              <a class="dropdown-item preview-item">               
+              <a class="dropdown-item preview-item" href="{{ url('/' . $page='settings') }}">               
                   <i class="icon-head"></i> Profile
               </a>
               <a class="dropdown-item preview-item" href="{{ route('logout') }} " onclick="event.preventDefault();document.getElementById('logout-form').submit();">

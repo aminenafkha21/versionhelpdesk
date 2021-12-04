@@ -117,6 +117,7 @@
                           {{$ticket->created_at}}
                           </td>
                           <td>
+                            
                             @if ($ticket->assignedto == null )
                                   <div class="form-group">
                                         <select class="form-control" name="assignedto" id="assignedto">

@@ -21,7 +21,7 @@
                 <div class="card h-100 shadow-sm">
                     
                 <div class="shadow-sm p-4 mb-6 bg-light rounded">
-                        <strong style="color:black">{{$item->service_name}}</strong>
+                        <strong style="color:black"> {{Auth::user()->name}} </strong>
                     </div>
                     <div class="card-body">
                         <div class="clearfix mb-3">  </div>

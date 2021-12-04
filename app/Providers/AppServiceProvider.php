@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\User;
+use App\Models\Settings;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -29,7 +30,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        if (Schema::hasTable('notifications')) {
+        if (Schema::hasTable('notifications') && Schema::hasTable('settings')) {
 
     
             $this->allnotofadminn = DB::table('notifications')
@@ -45,8 +46,15 @@ class AppServiceProvider extends ServiceProvider
 
             ->get(); 
 
+            $this->settings = DB::table('settings')
+            ->select(
+                'settings.*',
+            )
+
+            ->get();
+
             view()->composer('layouts.adminlayout.master', function($view) {
-                $view->with(['allnotofadmin' =>  $this->allnotofadminn]);
+                $view->with(['allnotofadmin' =>  $this->allnotofadminn],['settings' =>  $this->settings]);
             });
 
 
@@ -91,6 +99,7 @@ class AppServiceProvider extends ServiceProvider
 
         }
 
+     
         
        
     }

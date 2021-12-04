@@ -1,7 +1,7 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <div class="user-profile">
           <div class="user-image">
-            <img src="{{URL::asset('assets/images/admin.jpg')}}">
+            <img src="{{asset('storage/images/'.$item->gallery)}}">
           </div>
           <div class="user-name">
               {{Auth::user()->name}}
@@ -29,15 +29,24 @@
 
           <li class="nav-item">
             <a class="nav-link" href="{{ url('/' . $page='services') }}">
-              <i class="icon-file menu-icon"></i>
+              <i class="icon-briefcase menu-icon"></i>
               <span class="menu-title">Services</span>
             </a>
           </li>
 
           <li class="nav-item">
             <a class="nav-link" href="{{ url('/' . $page='users') }}">
-              <i class="icon-file menu-icon"></i>
+              <i class="icon-head  menu-icon"></i>
               <span class="menu-title">Users</span>
+            </a>
+          </li>
+
+
+
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url('/' . $page='settings') }}">
+              <i class="icon-cog menu-icon"></i>
+              <span class="menu-title">Settings</span>
             </a>
           </li>
     

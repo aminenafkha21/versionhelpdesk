@@ -8,6 +8,6 @@ error
                 
                 
   
-        </div>
+</div>
 
 @endsection
