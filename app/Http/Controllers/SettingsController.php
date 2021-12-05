@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
+use App\Models\settings;
+use Illuminate\Support\File;
+use Illuminate\Support\Facades\Storage;
+
 
 use Hash;
 
@@ -18,6 +22,10 @@ class SettingsController extends Controller
         $usertype=Auth::user()->user_type;
         $userid=Auth::user()->id;
 
+        $settings = DB::table('settings')
+        ->select('*')
+        ->get();
+
       
        
         if($usertype =="1") {
@@ -28,7 +36,7 @@ class SettingsController extends Controller
         }
         else {
            
-            return view('admin.settings');
+            return view('admin.settings',compact('settings'));
         }
 
 
@@ -69,16 +77,36 @@ class SettingsController extends Controller
         $data->email=$request->email;
         $data->name=$request->name;
         $data->save();
-        return redirect()->route('settings')->with('success','Profile Information edited successfully.'); ;  
+        return redirect()->route('settings')->with('success','Profile Information edited successfully.'); 
     }
 
-    public function deleteaccount(Request $request)
+    public function changesettings(Request $request)
     {
-  
 
-        User::destroy($request->idd);
 
-        return redirect()->route('logout')->with('success','Your account was deleted successfully.'); ;  
+        $request->validate([
+            'nameweb' => 'required',
+
+        ]);
+
+        $data=settings::find('1');
+
+
+        if($request->hasFile('image')){
+
+            $namef = $request->file('image')->getClientOriginalName();
+            $request->file('image')->storeAs('public/images/',$namef);
+            $data->logo = $namef;
+
+        }
+       
+        
+        $data->nameweb = $request->input('nameweb');
+    
+
+        $data->save(); 
+        return redirect()->route('settings')
+                        ->with('success','Settings created successfully.');
     }
 
   

@@ -35,6 +35,8 @@
 
         <main class="py-4">
         <div class="container-scroller">
+        <a class="btn btn-info " href="../" style="margin-left:20px"><i class="icon-air-play mx-0 mr-2"></i>Back to home</a>
+
     <div class="container-fluid page-body-wrapper full-page-wrapper">
       <div class="content-wrapper d-flex align-items-stretch auth auth-img-bg">
         <div class="row flex-grow">

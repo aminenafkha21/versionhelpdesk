@@ -1,7 +1,21 @@
 <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo" href="index.html"><h2 style="color:white">HelpDesk</h2></a>
-        <a class="navbar-brand brand-logo-mini" href="index.html"><img src="{{URL::asset('assets/images/logo-mini.svg')}}" alt="logo"/></a>
+
+      @foreach ($settings as $set)
+           <div class="panel-heading">
+
+           
+            <a class="navbar-brand brand-logo text-right " href="/home"><h3 style="color:#fff;font-size:20px">
+            <img  class="text-left pull-left" style="width:60px; border-radius:10px; height:35px" src="{{asset('storage/images/'.$set->logo)}}">
+            {!! "&nbsp;" !!}{!! "&nbsp;" !!}{!! "&nbsp;" !!}  {{$set->nameweb}}</h3></a>
+
+            <a class="navbar-brand brand-logo-mini text-right " href="/home"><h3 >
+            <img  class="text-left pull-left" style="width:60px; border-radius:10px; height:35px" src="{{asset('storage/images/'.$set->logo)}}">
+            </h3></a>
+          </div>
+            @endforeach
+      
+
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
         <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -32,14 +46,13 @@
 @php($nbn=$nbn+1)
 @endif
 @endforeach
-@if ( $nbn ==0)
-<i class="icon-bell"></i> 
-
-@elseif ( $nbn < 5)
-    <i class="icon-bell"></i> <span class="badge badge-danger" >  {{$nbn}} </span>&nbsp;&nbsp;
-@else
-<i class="icon-bell"></i> <span class="badge badge-danger" >  +5 </span>&nbsp;&nbsp;
-@endif  
+            @if ($nbn == 0)
+            <i class="icon-bell"></i>   </span>&nbsp;&nbsp;
+            @elseif ( $nbn < 5 && $nbn > 0 )
+            <i class="icon-bell"></i> <span class="badge badge-danger" >  {{$nbn}} </span>&nbsp;&nbsp;
+            @else 
+            <i class="icon-bell"></i> <span class="badge badge-danger" >  +5 </span>&nbsp;&nbsp;
+            @endif 
 
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="messageDropdown">

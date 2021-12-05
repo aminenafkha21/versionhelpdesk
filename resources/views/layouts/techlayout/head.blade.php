@@ -9,6 +9,8 @@
   <link rel="stylesheet" href="{{URL::asset('assets/vendors/font-awesome/css/font-awesome.min.css')}}">
   <link rel="stylesheet" href="{{URL::asset('assets/vendors/jquery-bar-rating/fontawesome-stars-o.css')}}">
   <link rel="stylesheet" href="{{URL::asset('assets/vendors/jquery-bar-rating/fontawesome-stars.css')}}">
+
+  
   <!-- End plugin css for this page -->
   <!-- inject:css -->
   <link rel="stylesheet" href="{{URL::asset('assets/css/style.css')}}">

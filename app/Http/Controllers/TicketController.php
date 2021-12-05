@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\ticket;
 use App\Models\User;
+use App\Models\service;
+
 use App\Models\notification;
 
 
@@ -54,7 +56,7 @@ class TicketController extends Controller
             
             ->where('ticket.assignedto',$user_id)
             ->select('ticket.*','ticket.id as ticket_id')
-            ->get();
+            ->paginate(5);
 
 
 
@@ -78,8 +80,14 @@ class TicketController extends Controller
             $tickets = DB::table('ticket')
              ->where('ticket.user_id',$user_id)
              ->select('ticket.*','ticket.id as ticket_id')
+             ->paginate(5);
+     
+
+             $services = DB::table('services')
              ->get();
-            return view('user.tickets', compact('tickets'));
+
+
+            return view('user.tickets',  array('tickets'=>$tickets,'services'=>$services));
 
 
         }
@@ -136,7 +144,7 @@ class TicketController extends Controller
            
 
            
-           $tickets = ticket::all();
+           $tickets = ticket::paginate(5);
            return view('admin.tickets', array('tickets'=>$tickets,'technicien'=>$serviceprovidersdispo,
            'sprovideraffected'=>$serviceprovidersaffected,'nameclientsofticket'=>$nameclientsofticket)); 
 
@@ -155,6 +163,8 @@ class TicketController extends Controller
     public function create()
     {
         $usertype=Auth::user()->user_type;
+        $services = DB::table('services')->get();
+
 
         if($usertype =="1") {
             return view('technician.tickets');
@@ -162,12 +172,14 @@ class TicketController extends Controller
 
         }
         elseif($usertype =="2") {
-            return view('user.newticket');
+            return view('user.newticket',array('services'=>$services));
 
 
         }
         elseif($usertype =="0")  {
-            return view('admin.newticket');
+
+
+            return view('admin.newticket',array('services'=>$services));
 
         } 
         else {
@@ -177,6 +189,7 @@ class TicketController extends Controller
     
     
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -188,7 +201,6 @@ class TicketController extends Controller
     {
         $user_id=Auth::user()->id;
         $this->validate($request, [
-            'ref' => 'required',
             'sujet' => 'required',
             'description' => 'required',
             'service' => 'required',
@@ -196,11 +208,17 @@ class TicketController extends Controller
             
 
         ]);
+        do {
+            $refrence_id = mt_rand( 1000000000, 9999999999 );
+         } while ( DB::table( 'ticket' )->where( 'ref', $refrence_id )->exists() );
         ticket::create([
+                          
+           
             'description' => $request->input('description'),
-            'ref' => $request->input('ref'),
+   
+            'ref' => '#' . $refrence_id,
             'sujet' => $request->input('sujet'),
-            'service' => $request->input('sujet'),
+            'service' => $request->input('service'),
             'criticité' => $request->input('criticité'),
             'status' => "Open",
             'user_id' => Auth::user()->id,
@@ -208,7 +226,7 @@ class TicketController extends Controller
 
         
         notification::create([
-            'ref' => $request->input('ref'),
+            'ref' => '#' . $refrence_id,
             'message' =>"New Ticket was opened ",
             'sender_id' => Auth::user()->id,
             
@@ -219,6 +237,14 @@ class TicketController extends Controller
                         ->with('success','Ticket created successfully.');
 
     }
+
+    function Confirmer($id){
+        alert()->question('Are you sure?','You won\'t be able to delete this!')
+        ->showConfirmButton('<a href="removeticket/' . $id . ' " class="text-white" style="text-decoration:none">Delete</a>', '#3085d6')->toHtml()
+        ->showCancelButton('Cancel', '#aaa')->reverseButtons();
+        return redirect()->route('tickets.index');
+        
+            }
 
     function removeTicket($id){
         ticket::destroy($id);
@@ -358,6 +384,32 @@ class TicketController extends Controller
         return redirect()->route('tickets.index') ;
         
     }
+
+    public function detailTicket($id){
+        $usertype=Auth::user()->user_type;
+        $data=ticket::find($id);
+        $services = DB::table('services')
+        ->get();
+        $technicienof = DB::table('users')
+        ->where('users.user_type','1')
+        ->select('users.*')
+        ->get();
+
+        if($usertype =="1") {
+            return view('technician.detail',['data'=>$data,'services'=>$services]);
+
+
+        }
+        elseif($usertype =="2") {
+            return view('user.detail',['data'=>$data,'services'=>$services,'technicienof'=>$technicienof]);
+
+
+        }
+        elseif($usertype =="0")  {
+            return view('admin.detail',['data'=>$data,'services'=>$services,'technicienof'=>$technicienof]);
+
+        } 
+      }
 
 
 

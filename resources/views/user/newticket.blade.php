@@ -24,10 +24,7 @@
                   <form class="forms-sample" action="{{route('tickets.store') }}" method="POST">
                   @csrf
 
-                    <div class="form-group">
-                      <label for="ref">Ref.</label>
-                      <input type="text"  name="ref" class="form-control" id="ref" placeholder="Reference">
-                    </div>
+                   
                     <div class="form-group">
                       <label for="sujet">Subject</label>
                       <input type="text"  name="sujet" class="form-control" id="sujet" placeholder="Sujet">
@@ -37,8 +34,14 @@
                       <textarea class="form-control" id="description" name="description" rows="20"></textarea>  
                     </div>
                     <div class="form-group">
-                      <label for="service">Service</label>
-                      <input type="text" name="service" class="form-control" id="service" placeholder="Service">
+                    <label for="crit">Services</label>
+                    <select class="form-control" name="service" id="criticité">
+                                        <option selected disabled>----Select Service----</option>
+                                        @foreach($services as $ser)
+                                        <option value="{{$ser->id}}">{{$ser->service_name}}</option>
+                                        @endforeach
+                                   
+                    </select>
                     </div>
                     <div class="form-group">
                       <label for="service">Image</label>

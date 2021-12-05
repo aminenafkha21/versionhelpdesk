@@ -12,28 +12,37 @@
     <link rel="stylesheet" href="{{URL::asset('assets/css/welcome/open-iconic-bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{URL::asset('assets/css/welcome/animate.css')}}">
     
+    <link rel="stylesheet" href="{{URL::asset('assets/vendors/mdi/css/materialdesignicons.min.css')}}">
 
 
     <link rel="stylesheet" href="{{URL::asset('assets/css/welcome/ionicons.min.css')}}">	
     
     <link rel="stylesheet" href="{{URL::asset('assets/css/welcome/style.css')}}">
+
   </head>
   <body>
+  <?php
+use Illuminate\Support\Facades\Session;
+$settings= DB::table('settings')->get();
+?>
 
 		
   <div class="main-section">
 
 		<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 	    <div class="container">
-	      <a class="navbar-brand" href="index.html">Helpdesk.</a>
+        @foreach( $settings as $set)
+	      <a class="navbar-brand" href="index.html">{{$set->nameweb}}</a>
+        @endforeach
 	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
 	        <span class="oi oi-menu"></span> Menu
 	      </button>
 	      <div class="collapse navbar-collapse" id="ftco-nav">
 	        <ul class="navbar-nav mr-auto">
                     <li class="nav-item"><a href="#" class="nav-link icon d-flex align-items-center"> Home</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link icon d-flex align-items-center"> Services</a></li>
+                    <li class="nav-item"><a href="/documentation" class="nav-link icon d-flex align-items-center"> Documentation</a></li>
                     <li class="nav-item"><a href="#" class="nav-link icon d-flex align-items-center"> Contact</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link icon d-flex align-items-center"> About Us</a></li>
 
 
 	        </ul>
@@ -118,6 +127,8 @@
   <script src="{{URL::asset('assets/js/jquery.magnific-popup.min.js')}}"></script>
   <script src="{{URL::asset('assets/js/aos.js')}}"></script>
   <script src="{{URL::asset('assets/js/main.js')}}"></script>
+
+  
     
   </body>
 </html>

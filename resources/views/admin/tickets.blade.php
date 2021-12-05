@@ -29,7 +29,7 @@
                 </div>
             @endif
                   <div class="table-responsive">
-                    <table class="table table-striped">
+                    <table class="datatable table table-striped   " >
                       <thead>
                         <tr>
                           <th>
@@ -169,8 +169,11 @@
                           </form>
 
                            @endforeach
+                           {{ $tickets->links() }}
+
                       </tbody>
                     </table>
+
                   </div>
                 </div>
               </div>

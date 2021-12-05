@@ -29,7 +29,6 @@
                     <div class="card-body">
                         <div class="clearfix mb-3">  </div>
                         <img src="{{asset('storage/images/'.$item->gallery)}}" class="card-img-top" alt="...">
-                        <h5 class="card-title">{{$item->description}} {{asset('storage/images/'.$item->gallery)}}</h5>
                         
                     </div>
 
@@ -37,7 +36,7 @@
                     
                         <div class="text-center my-4 "> <a href="{{ url('/deleteservice/'.$item->id)}}" class="btn btn-danger">Delete</a> 
                         <a href="editservice/{{$item->id}}" class="btn btn-warning">Edit</a> 
-                        <a href="#" class="btn btn-info">Details</a> </div>
+                        <a href="detailservice/{{$item->id}}" class="btn btn-info">More info</a> </div>
                 </div>
             </div>
             @endforeach

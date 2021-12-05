@@ -7,6 +7,8 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\PDFController;
+
 
 
 
@@ -28,6 +30,9 @@ use App\Http\Controllers\SettingsController;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/documentation', function () {
+    return view('documentation');
+});
 
 
 Auth::routes([]);
@@ -41,6 +46,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class,'index'])->name(
 
 
 
+
+
 Route::resource('tickets', TicketController::class);
 Route::resource('services', ServiceController::class);
 Route::resource('users', UserController::class);
@@ -48,9 +55,14 @@ Route::resource('users', UserController::class);
 Route::get('/newticket', [App\Http\Controllers\TicketController::class, 'create']);
 
 
-Route::get("removeticket/{id}",[TicketController::class,"removeTicket"]);
+Route::get("Confirmer/{id}",[TicketController::class,"Confirmer"]);
 Route::get("editticket/{id}",[TicketController::class,"showTicket"]);
 Route::post("/edit",[TicketController::class,"updateTicket"]);
+Route::get("detail/{id}",[TicketController::class,"detailTicket"]);
+Route::get("detailservice/{id}",[ServiceController::class,"detailservice"]);
+
+Route::get('generate-pdf/{id}', [PDFController::class, 'generatePDF']);
+
 
 Route::post("/assignedticket",[TicketController::class,"assignedTicket"]);
 Route::post("/closeticket",[TicketController::class,"closeTicket"]);
@@ -72,7 +84,7 @@ Route::get("/markasvnotification/{id}",[NotificationController::class,"markasvno
 Route::get('/settings', [App\Http\Controllers\SettingsController::class, 'index'])->name('settings');
 Route::post('/changePassword',[App\Http\Controllers\SettingsController::class, 'changePasswordPost'])->name('changePasswordPost');
 Route::post('/changeNameandMail',[App\Http\Controllers\SettingsController::class, 'changeNameandMail'])->name('changeNameandMail');
-Route::post('/deleteaccount',[App\Http\Controllers\SettingsController::class, 'deleteaccount'])->name('deleteaccount');
+Route::post('/changesettings',[App\Http\Controllers\SettingsController::class, 'changesettings'])->name('changesettings');
 
 
 

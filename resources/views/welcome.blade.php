@@ -12,7 +12,26 @@
   					<div class="text">
   						<h1>Helpdesk System.</h1>
   						<h4 class="mb-5">Ticketing System</h4>
-  						<p><a href="#" class="btn btn-primary px-4 py-3"><i class="ion-ios-cloud-download mr-2"></i>Log in</a></p>
+					
+
+
+					
+						  @if(Auth::guest())
+						  <p><a href="{{ url('login') }}" class="btn btn-primary px-4 py-3">
+
+						  Log in
+						  </a> </p>
+
+						  @else
+						  <p><a href="{{ url('home') }}" class="btn btn-primary px-4 py-3">   
+
+                          Dashboard
+						</a> </p>
+						  @endif
+						
+
+						
+						
   					</div>
   				</div>
   			</div>
@@ -94,29 +113,45 @@
 						<div class="row">
 							<div class="col-md-3 text-center">
 								<h2 class="heading-section mb-4">
-									<small>Rounded Image</small>
+									<small>Nafkha Mohamed amine</small>
 								</h2>
-								<img src="images/avatar.jpg" alt="Round Image" class="rounded img-fluid image">
+								<img src="{{asset('assets/images/amine.png')}}" alt="Round Image" class="rounded img-fluid image">
 							</div>
 							<div class="col-md-3 text-center">
 								<h2 class="heading-section mb-4">
-									<small>Circle Image</small>
+									<small>Zouaghi Sarra</small>
 								</h2>
-								<img src="images/avatar.jpg" alt="Circle Image" class="rounded-circle img-fluid image">
+								<img src="{{asset('assets/images/amine.png')}}" alt="Circle Image" class="rounded-circle img-fluid image">
 							</div>
 							<div class="col-md-3 text-center">
 								<h2 class="heading-section mb-4">
-									<small>Rounded Raised</small>
+									<small>Triki Mohamed ali</small>
 								</h2>
-								<img src="images/avatar.jpg" alt="Thumbnail Image" class="img-raised rounded img-fluid image">
+								<img src="{{asset('assets/images/amine.png')}}" alt="Thumbnail Image" class="img-raised rounded img-fluid image">
 							</div>
 
 							<div class="col-md-3 text-center">
 								<h2 class="heading-section mb-4">
-									<small>Circle Raised</small>
+									<small>Ouhibi Khalil</small>
 								</h2>
-								<img src="images/avatar.jpg" alt="Thumbnail Image" class="img-raised rounded-circle thumbnail img-fluid image">
+								<img src="{{asset('assets/images/amine.png')}}" alt="Thumbnail Image" class="img-raised rounded-circle thumbnail img-fluid image">
 							</div>
+
+							
+						</div>
+						<div class="row">
+						<div class="col-md-4 text-center mt-20">
+							</div>
+							<div class="col-md-4 text-center mt-20">
+								<h2 class="  heading-section mb-4">
+									<small>Eleuch Hamza</small>
+								</h2>
+								<img src="{{asset('assets/images/amine.png')}}" alt="Thumbnail Image" class="img-raised rounded-circle thumbnail img-fluid image">
+							</div>
+							<div class="col-md-4 text-center mt-20">
+							
+							</div>
+
 						</div>
 					</div>
 				</div>

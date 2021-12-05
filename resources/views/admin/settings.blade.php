@@ -98,24 +98,27 @@
                             <div class="tab-pane" id="account">
                             <h6>ACCOUNT SETTINGS</h6>
                             <hr>
-                            <form>
+                            <form method="POST" action="{{ route('changesettings') }}"  enctype="multipart/form-data">
+                            {{ csrf_field() }}
                                 
+                            @foreach ($settings as $set)
                                  <div class="form-group">
                                 <label for="fullName">Site Name</label>
-                                <input type="text"  name="name" class="form-control" id="fullName" aria-describedby="fullNameHelp" placeholder="Enter your fullname" value=" {{Auth::user()->name}}">
+                                <input type="text"  name="nameweb" class="form-control" id="fullName" aria-describedby="fullNameHelp" placeholder="Enter your fullname" value=" {{$set->nameweb}}">
                                 <small id="fullNameHelp" class="form-text text-muted">Your name of website may appear around here where you are mentioned. You can change or remove it at any time.</small>
                                 </div>
                                 <div class="form-group">
                                 <label for="fullName">Url Site</label>
-                                <input type="text"  name="url" class="form-control" id="url" aria-describedby="fullNameHelp" placeholder="Enter your url" value=" {{Auth::user()->name}}">
+                                <input type="text"  name="url" class="form-control" id="url" aria-describedby="fullNameHelp" placeholder="Enter your url" value="Url">
                                 <small id="url" class="form-text text-muted">Your Url of website may appear around here where you are mentioned. You can change or remove it at any time.</small>
                                 </div>
                                 <div class="form-group">
                                 <label for="fullName">Site Logo</label>
-                                <input type="file"  name="name" class="form-control" id="fullName" aria-describedby="fullNameHelp" placeholder="Enter your fullname" value=" {{Auth::user()->name}}">
+                                <input type="file"  name="image" class="form-control" id="logo" aria-describedby="fullNameHelp" placeholder="Enter your fullname" value="{{$set->logo}}">
                                 <small id="fullNameHelp" class="form-text text-muted">Your Logo of website may appear around here where you are mentioned. You can change or remove it at any time.</small>
                                 </div>
                                 <button class="btn btn-info" type="submit">Submit</button>
+                            @endforeach
                             </form>
                             </div>
                             <div class="tab-pane" id="security">
@@ -148,14 +151,7 @@
                                 <button class="btn btn-info" type="submit">Submit</button>
 
                             </form>
-                            <hr>
-                            <form>
-                                <div class="form-group">
-                                <label class="d-block">Two Factor Authentication</label>
-                                <button class="btn btn-info" type="button">Enable two-factor authentication</button>
-                                <p class="small text-muted mt-2">Two-factor authentication adds an additional layer of security to your account by requiring more than just a password to log in.</p>
-                                </div>
-                            </form>
+            
                             <hr>
                             <form>
                                 <div class="form-group mb-0">
@@ -164,8 +160,8 @@
                                 <ul class="list-group list-group-sm">
                                     <li class="list-group-item has-icon">
                                     <div>
-                                        <h6 class="mb-0">San Francisco City 190.24.335.55</h6>
-                                        <small class="text-muted">Your current session seen in United States</small>
+                                        <h6 class="mb-0">Tunis center , 190.24.335.55</h6>
+                                        <small class="text-muted">Your current session seen in Tunisia</small>
                                     </div>
                                     <button class="btn btn-light btn-sm ml-auto" type="button">More info</button>
                                     </li>

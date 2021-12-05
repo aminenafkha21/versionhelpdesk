@@ -18,9 +18,9 @@ class CreateTicketTable extends Migration
             $table->string("ref");
             $table->string("sujet");
             $table->string("description")->nullable();
-            $table->string("service")->default('');
             $table->string("criticité")->default('');
             $table->string("status")->default('');
+            $table->foreignId('service')->nullable()->constrained('services')->nullOnDelete();
             $table->foreignId('user_id')->nullable()->constrained('users')->nullOnDelete();
             $table->foreignId('assignedto')->nullable()->constrained('users')->nullOnDelete();
             $table->foreignId('dispotech')->nullable()->constrained('users')->nullOnDelete();

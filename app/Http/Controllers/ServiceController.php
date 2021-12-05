@@ -80,6 +80,26 @@ class ServiceController extends Controller
             
 
     }
+    public function detailservice($id){
+        $usertype=Auth::user()->user_type;
+        $data=service::find($id);
+        
+
+        if($usertype =="1") {
+            return view('technician.detailservice',['data'=>$data]);
+
+
+        }
+        elseif($usertype =="2") {
+            return view('user.detailservice',['data'=>$data]);
+
+
+        }
+        elseif($usertype =="0")  {
+            return view('admin.detailservice',['data'=>$data]);
+
+        } 
+      }
 
     function removeservice($id){
         service::destroy($id);

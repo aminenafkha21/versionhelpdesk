@@ -18,24 +18,24 @@
                   <div class="table-responsive">
                     <table class="table table-striped">
                       <thead>
-                        <tr>
+                        <tr class="text-center">
                           <th>
                             Référence
                           </th>
                           <th>
                             Subject
                           </th>
-                          <th>
-                            Service
+                          <th >
+                            Services
                           </th>
                           <th>
                             Created At
                           </th>
                           <th>
-                              Criticité
+                          Status
                           </th>
                           <th>
-                          Status
+                          Assigned to 
                           </th>
 	            					  <th>
                             Actions
@@ -45,7 +45,7 @@
                       <tbody>
                       @foreach ($tickets as $ticket)
 
-                        <tr>
+                        <tr class="text-center">
                                             <td class="py-1">
                                             {{ $ticket->ref }}                                            
 
@@ -54,17 +54,25 @@
                                             {{ $ticket->sujet }}                                            
 
                                            </td>
-                                            <td>
-                                            {{ $ticket->service }}                                            
-                                          </td>
+                                            <td class="py-1">
+                                              @foreach ( $services as $ser)
+                                                @if($ser->id ==  $ticket->service)
+                                                <div >
+                                                <img  src="{{asset('storage/images/'.$ser->gallery)}}" alt="image"/>
+
+                                                  <p >{{ $ser->service_name }}    </p>
+                                                </div>
+                                                @endif                                       
+
+
+                                              @endforeach
+
+                                           </td>
                                             <td>
                                             {{ $ticket->created_at }}                                            
 
                                             </td>
-                                            <td>
-                                            {{ $ticket->criticité }}                                            
-
-                                            </td>
+                                     
                                        
                                 <td>
                                   @if ( $ticket->status == "Open" )
@@ -80,16 +88,29 @@
 
                                   @endif
                               </td>
+                              @if ($ticket->assignedto == null )
+
+                              <td class="text-danger"> Not assigned to Sprovider <i class="mdi mdi-arrow-down"></i></td>
+                              @else
+
+                              <td class="text-success"> Assigned to Sprovider <i class="mdi mdi-arrow-up"></i></td>
+
+
+                              @endif
+                                            
+                              
+
                                 <td>
                                  @if ( $ticket->status == "Open" )
-                                <a href="/removeticket/{{$ticket->id}}" class="btn btn-danger">Delete</a>
+                                <a href="/Confirmer/{{$ticket->id}}" class="btn btn-danger">Delete</a>
                                 <a href="editticket/{{$ticket->id}}" class="btn btn-warning">Edit</a>
                                 @endif
 
                                 @if ( $ticket->status == "Resolved" )
                                 <a href="" class="btn btn-danger">Close</a>
                                 @endif
-                              <button type="button" class="btn btn-info">Detailes</button>
+                              <a href="detail/{{$ticket->id}}" class="btn btn-info">Detailes</a>
+
 
 
 
@@ -97,10 +118,13 @@
                          </tr>
                          @endforeach
 
-                       
+                         {{ $tickets->links() }}
+
 						
                  
                       </tbody>
+                      @include('sweetalert::alert')
+
                     </table>
                   </div>
                 </div>

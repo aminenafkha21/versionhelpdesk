@@ -3,11 +3,12 @@
 namespace App\Providers;
 
 use App\Models\User;
-use App\Models\Settings;
+use App\Models\settings;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Pagination\Paginator;
 
 
 
@@ -30,6 +31,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Paginator::useBootstrap();
+
         if (Schema::hasTable('notifications') && Schema::hasTable('settings')) {
 
     
@@ -50,11 +53,10 @@ class AppServiceProvider extends ServiceProvider
             ->select(
                 'settings.*',
             )
-
             ->get();
 
             view()->composer('layouts.adminlayout.master', function($view) {
-                $view->with(['allnotofadmin' =>  $this->allnotofadminn],['settings' =>  $this->settings]);
+                $view->with(['allnotofadmin' =>  $this->allnotofadminn,'settings' =>  $this->settings]);
             });
 
 
@@ -74,7 +76,7 @@ class AppServiceProvider extends ServiceProvider
             ->get(); 
 
             view()->composer('layouts.techlayout.master', function($view) {
-                $view->with(['allnotoftech' =>  $this->allnotoftech]);
+                $view->with(['allnotoftech' =>  $this->allnotoftech,'settings' =>  $this->settings]);
             });
 
 
@@ -92,7 +94,7 @@ class AppServiceProvider extends ServiceProvider
             ->get(); 
 
             view()->composer('layouts.userlayout.master', function($view) {
-                $view->with(['allnotofclient' =>  $this->allnotofclient]);
+                $view->with(['allnotofclient' =>  $this->allnotofclient,'settings' =>  $this->settings]);
             });
 
 
